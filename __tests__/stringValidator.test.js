@@ -23,4 +23,31 @@ describe('Validator', () => {
     expect(schema.isValid('this is data')).toBe(true);
     expect(schema.isValid('the data')).toBe(false);
   });
+
+  test('number', () => {
+    const v = new Validator();
+    const schema = v.number();
+
+    expect(schema.isValid(100)).toBe(true);
+    expect(schema.isValid(null)).toBe(true);
+    expect(schema.isValid(0)).toBe(true);
+
+    schema.required();
+    expect(schema.isValid(99)).toBe(true);
+    expect(schema.isValid(-99)).toBe(true);
+    expect(schema.isValid()).toBe(false);
+    expect(schema.isValid(null)).toBe(false);
+
+    schema.range(-10, 42);
+    expect(schema.isValid(7)).toBe(true);
+    expect(schema.isValid(-10)).toBe(true);
+    expect(schema.isValid(-11)).toBe(false);
+    expect(schema.isValid(66)).toBe(false);
+
+    schema.positive();
+    expect(schema.isValid(0)).toBe(true);
+    expect(schema.isValid(10)).toBe(true);
+    expect(schema.isValid(-2)).toBe(false);
+    expect(schema.isValid(66)).toBe(false);
+  });
 });
