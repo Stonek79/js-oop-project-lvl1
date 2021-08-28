@@ -14,7 +14,7 @@ const range = ({ min, max }) => (data) => {
 export default class NumberValidator {
   constructor() {
     this.validators = {
-      required, contains: positive, minLength: range,
+      required, positive, range,
     };
     this.checks = [];
     this.requiredValue = false;

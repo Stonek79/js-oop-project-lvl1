@@ -50,4 +50,24 @@ describe('Validator', () => {
     expect(schema.isValid(-2)).toBe(false);
     expect(schema.isValid(66)).toBe(false);
   });
+
+  test('array', () => {
+    const v = new Validator();
+    const schema = v.array();
+
+    expect(schema.isValid([])).toBe(true);
+    expect(schema.isValid(null)).toBe(false);
+
+    schema.required();
+    expect(schema.isValid([])).toBe(true);
+    expect(schema.isValid([99])).toBe(true);
+    expect(schema.isValid()).toBe(false);
+    expect(schema.isValid(null)).toBe(false);
+
+    schema.sizeof(3);
+    expect(schema.isValid([1, 2, 3, 4, 5])).toBe(true);
+    expect(schema.isValid(['one', 'two', 3])).toBe(true);
+    expect(schema.isValid(['one'])).toBe(false);
+    expect(schema.isValid([])).toBe(false);
+  });
 });
