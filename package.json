@@ -1,0 +1,38 @@
+{
+  "name": "@hexlet/code",
+  "version": "1.0.0",
+  "description": "Simple data validator",
+  "main": "index.js",
+  "scripts": {
+    "test": "NODE_OPTIONS=--experimental-vm-modules npx jest",
+    "test:watch": "NODE_OPTIONS=--experimental-vm-modules npx jest npx jest . --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Stonek79/js-oop-project-lvl1.git"
+  },
+  "keywords": [
+    "oop",
+    "validator"
+  ],
+  "author": "Stonek79",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Stonek79/js-oop-project-lvl1/issues"
+  },
+  "type": "module",
+  "homepage": "https://github.com/Stonek79/js-oop-project-lvl1#readme",
+  "devDependencies": {
+    "@jest/globals": "^27.0.6",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.24.2",
+    "eslint-plugin-jest": "^24.4.0",
+    "jest": "^27.0.6",
+    "jest-cli": "^27.0.6"
+  },
+  "dependencies": {
+    "lodash": "^4.17.21",
+    "yup": "^0.32.9"
+  }
+}
