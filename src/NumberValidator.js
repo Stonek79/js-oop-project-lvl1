@@ -37,8 +37,7 @@ export default class NumberValidator {
   }
 
   isValid(data) {
-    const validation = this.checks.filter(({ validate, args }) => !validate(args)(data));
-    const isValid = !validation.length;
+    const isValid = this.checks.every(({ validate, args }) => validate(args)(data));
 
     return isValid;
   }

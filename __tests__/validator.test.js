@@ -1,7 +1,7 @@
 import { expect } from '@jest/globals';
 import Validator from '../index.js';
 
-describe('Validator', () => {
+describe('Validators', () => {
   test('string', () => {
     const v = new Validator();
     const schema = v.string();
@@ -69,5 +69,21 @@ describe('Validator', () => {
     expect(schema.isValid(['one', 'two', 3])).toBe(true);
     expect(schema.isValid(['one'])).toBe(false);
     expect(schema.isValid([])).toBe(false);
+  });
+
+  test('shape', () => {
+    const v = new Validator();
+    const schema = v.object();
+
+    schema.shape({
+      car: v.string().required(),
+      year: v.number().required().range(1900, 2021),
+      models: v.array().required().sizeof(1),
+    });
+
+    expect(schema.isValid({ car: 'dodge', year: 1969, models: ['charger'] })).toBe(true);
+    expect(schema.isValid({ car: 'mersedes', year: null, models: ['benz'] })).toBe(false);
+    expect(schema.isValid({ car: 'lada', year: 1999, models: [] })).toBe(false);
+    expect(schema.isValid({ car: 'telega', year: 1488, models: ['horse', 'donkey'] })).toBe(false);
   });
 });

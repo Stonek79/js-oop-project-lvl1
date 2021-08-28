@@ -23,8 +23,7 @@ export default class ArrayValidator {
 
   isValid(data) {
     if (data === null) { return false; }
-    const validation = this.checks.filter(({ validate, args }) => !validate(args)(data));
-    const isValid = !validation.length;
+    const isValid = this.checks.every(({ validate, args }) => validate(args)(data));
 
     return isValid;
   }
