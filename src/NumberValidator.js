@@ -1,44 +1,20 @@
 import _ from 'lodash';
+import BaseValidationSchema from './BaseValidationSchema';
 
-const required = () => (data = null) => !_.isNil(data);
-const positive = () => (data) => data >= 0;
-const range = ({ min, max }) => (data) => {
-  if (min === Infinity && max === Infinity) { return true; }
-  if (min === Infinity && data <= max) { return true; }
-  if (max === Infinity && data >= min) { return true; }
-  if (data >= min && data <= max) { return true; }
-
-  return false;
-};
-
-export default class NumberValidator {
-  constructor() {
-    this.validators = {
-      required, positive, range,
-    };
-    this.checks = [];
-    this.requiredValue = false;
-  }
-
-  required() {
-    this.requiredValue = true;
-    this.checks.push({ validate: required, args: [] });
-    return this;
-  }
-
+export default class NumberValidator extends BaseValidationSchema {
   positive() {
-    this.checks.push({ validate: positive, args: [] });
+    this.validators.positive = () => (data) => data >= 0;
+    this.checks.push({ validate: this.validators.positive, args: [] });
     return this;
   }
 
-  range(min = Infinity, max = Infinity) {
-    this.checks.push({ validate: range, args: { min, max } });
+  range(min, max) {
+    this.validators.range = () => (data) => data >= min && data <= max;
+    this.checks.push({ validate: this.validators.range, args: { min, max } });
     return this;
   }
 
-  isValid(data) {
-    const isValid = this.checks.every(({ validate, args }) => validate(args)(data));
-
-    return isValid;
+  static obligate() {
+    return () => (data = null) => !_.isNil(data);
   }
 }

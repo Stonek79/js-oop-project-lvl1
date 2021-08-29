@@ -1,4 +1,3 @@
-import { expect } from '@jest/globals';
 import Validator from '../index.js';
 
 describe('Validators', () => {
@@ -85,5 +84,34 @@ describe('Validators', () => {
     expect(schema.isValid({ car: 'mersedes', year: null, models: ['benz'] })).toBe(false);
     expect(schema.isValid({ car: 'lada', year: 1999, models: [] })).toBe(false);
     expect(schema.isValid({ car: 'telega', year: 1488, models: ['horse', 'donkey'] })).toBe(false);
+  });
+
+  test('custom validator', () => {
+    const v = new Validator();
+
+    const fn1 = () => (value) => !value.endsWith(' ');
+    v.addValidator('string', 'notEndsSpace', fn1);
+
+    const fn2 = () => (value) => Number.isInteger(value);
+    v.addValidator('number', 'isInteger', fn2);
+
+    const fn3 = (end) => (value) => value.endsWith(end);
+    v.addValidator('string', 'endsWith', fn3);
+
+    const schema1 = v.string().test('notEndsSpace');
+    expect(schema1.isValid('This is true')).toBe(true);
+    expect(schema1.isValid('This is false ')).toBe(false);
+    expect(schema1.isValid('This is false too   ')).toBe(false);
+
+    const schema2 = v.number().test('isInteger');
+    expect(schema2.isValid(5)).toBe(true);
+    expect(schema2.isValid(-5)).toBe(true);
+    expect(schema2.isValid(2.5)).toBe(false);
+    expect(schema2.isValid(-2.5)).toBe(false);
+
+    const schema3 = v.string().test('endsWith', '!');
+    expect(schema3.isValid('This is the end!')).toBe(true);
+    expect(schema3.isValid('This is not the end! ')).toBe(false);
+    expect(schema3.isValid('This is not the end too')).toBe(false);
   });
 });

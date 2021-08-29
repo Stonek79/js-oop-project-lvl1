@@ -1,37 +1,15 @@
-import _ from 'lodash';
+import BaseValidationSchema from './BaseValidationSchema';
 
-const required = () => (data) => !_.isNil(data) && data.length > 0;
-const contains = (str) => (data) => data.includes(str);
-const minLength = (min) => (data) => data.length >= min;
-
-export default class StringValidator {
-  constructor() {
-    this.validators = {
-      required, contains, minLength,
-    };
-    this.checks = [];
-    this.requiredValue = false;
-  }
-
-  required() {
-    this.requiredValue = true;
-    this.checks.push({ validate: required, args: [] });
-    return this;
-  }
-
+export default class StringValidator extends BaseValidationSchema {
   contains(str = '') {
-    this.checks.push({ validate: contains, args: str });
+    this.validators.contains = () => (data) => data.includes(str);
+    this.checks.push({ validate: this.validators.contains, args: str });
     return this;
   }
 
   minLength(min = 0) {
-    this.checks.push({ validate: minLength, args: min });
+    this.validators.minLength = () => (data) => data.length >= min;
+    this.checks.push({ validate: this.validators.minLength, args: min });
     return this;
-  }
-
-  isValid(data) {
-    const isValid = this.checks.every(({ validate, args }) => validate(args)(data));
-
-    return isValid;
   }
 }
