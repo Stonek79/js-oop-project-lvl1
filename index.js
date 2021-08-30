@@ -5,7 +5,7 @@ import StringValidator from './src/StringValidator.js';
 
 export default class Validator {
   constructor() {
-    this.validator = null;
+    this.currentValidator = null;
     this.customValidators = {
       string: [],
       number: [],
@@ -14,26 +14,26 @@ export default class Validator {
   }
 
   string() {
-    this.validator = new StringValidator();
-    this.addToCustomValidators(this.string.name, this.validator);
-    return this.validator;
+    this.currentValidator = new StringValidator();
+    this.addToCustomValidators(this.string.name, this.currentValidator);
+    return this.currentValidator;
   }
 
   number() {
-    this.validator = new NumberValidator();
-    this.addToCustomValidators(this.number.name, this.validator);
-    return this.validator;
+    this.currentValidator = new NumberValidator();
+    this.addToCustomValidators(this.number.name, this.currentValidator);
+    return this.currentValidator;
   }
 
   array() {
-    this.validator = new ArrayValidator();
-    this.addToCustomValidators(this.array.name, this.validator);
-    return this.validator;
+    this.currentValidator = new ArrayValidator();
+    this.addToCustomValidators(this.array.name, this.currentValidator);
+    return this.currentValidator;
   }
 
   object() {
-    this.validator = new ObjectValidator();
-    return this.validator;
+    this.currentValidator = new ObjectValidator();
+    return this.currentValidator;
   }
 
   addValidator(type, name, fn) {

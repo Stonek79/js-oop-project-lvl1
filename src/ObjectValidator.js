@@ -5,6 +5,7 @@ export default class ObjectValidator {
 
   shape(obj) {
     this.schema = obj;
+
     return this.schema;
   }
 

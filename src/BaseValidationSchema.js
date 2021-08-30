@@ -9,19 +9,19 @@ export default class BaseValidationSchema {
 
   required() {
     this.requiredValue = true;
-    this.validators.required = this.constructor.obligate();
-    this.checks.push({ validate: this.constructor.obligate(), args: [] });
+    this.validators.required = this.constructor.require;
+    this.checks.push({ validate: this.constructor.require(), args: [] });
     return this;
   }
 
   test(name, value = null) {
     const checker = this.validators[name];
-    this.checks.push({ validate: checker, args: value });
+    this.checks.push({ validate: checker, args: [value] });
     return this;
   }
 
   isValid(data) {
-    const isValid = this.checks.every(({ validate, args }) => validate(args)(data));
+    const isValid = this.checks.every(({ validate, args }) => validate(data, ...args));
 
     return isValid;
   }
@@ -30,7 +30,7 @@ export default class BaseValidationSchema {
     this.validators[name] = fn;
   }
 
-  static obligate() {
-    return () => (data) => !_.isNil(data) && data.length > 0;
+  static require() {
+    return (data) => !_.isNil(data) && data.length > 0;
   }
 }

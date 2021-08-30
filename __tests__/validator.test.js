@@ -1,6 +1,6 @@
 import Validator from '../index.js';
 
-describe('Validators', () => {
+describe('Validators:', () => {
   test('string', () => {
     const v = new Validator();
     const schema = v.string();
@@ -48,6 +48,9 @@ describe('Validators', () => {
     expect(schema.isValid(10)).toBe(true);
     expect(schema.isValid(-2)).toBe(false);
     expect(schema.isValid(66)).toBe(false);
+
+    schema.range(-0, 0);
+    expect(schema.isValid(0)).toBe(true);
   });
 
   test('array', () => {
@@ -70,7 +73,7 @@ describe('Validators', () => {
     expect(schema.isValid([])).toBe(false);
   });
 
-  test('shape', () => {
+  test('shape (object)', () => {
     const v = new Validator();
     const schema = v.object();
 
@@ -82,20 +85,20 @@ describe('Validators', () => {
 
     expect(schema.isValid({ car: 'dodge', year: 1969, models: ['charger'] })).toBe(true);
     expect(schema.isValid({ car: 'mersedes', year: null, models: ['benz'] })).toBe(false);
-    expect(schema.isValid({ car: 'lada', year: 1999, models: [] })).toBe(false);
+    expect(schema.isValid({ car: 'lada', year: 1999, models: 'granta' })).toBe(false);
     expect(schema.isValid({ car: 'telega', year: 1488, models: ['horse', 'donkey'] })).toBe(false);
   });
 
   test('custom validator', () => {
     const v = new Validator();
 
-    const fn1 = () => (value) => !value.endsWith(' ');
+    const fn1 = (value) => !value.endsWith(' ');
     v.addValidator('string', 'notEndsSpace', fn1);
 
-    const fn2 = () => (value) => Number.isInteger(value);
+    const fn2 = (value) => Number.isInteger(value);
     v.addValidator('number', 'isInteger', fn2);
 
-    const fn3 = (end) => (value) => value.endsWith(end);
+    const fn3 = (value, end) => value.endsWith(end);
     v.addValidator('string', 'endsWith', fn3);
 
     const schema1 = v.string().test('notEndsSpace');
