@@ -42,13 +42,17 @@ describe('Validators:', () => {
     expect(schema.isValid(-10)).toBe(true);
     expect(schema.isValid(-11)).toBe(false);
     expect(schema.isValid(66)).toBe(false);
+  });
+
+  test('number positive', () => {
+    const v = new Validator();
+    const schema = v.number();
 
     schema.positive();
     expect(schema.isValid(0)).toBe(false);
     expect(schema.isValid(10)).toBe(true);
     expect(schema.isValid(-2)).toBe(false);
-    expect(schema.isValid(66)).toBe(false);
-
+    expect(schema.isValid(null)).toBe(true);
   });
 
   test('array', () => {
