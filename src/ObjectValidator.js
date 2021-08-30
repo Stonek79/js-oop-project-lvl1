@@ -1,15 +1,12 @@
 export default class ObjectValidator {
-  constructor() {
-    this.schema = {};
-  }
-
   shape(obj) {
     this.schema = obj;
 
-    return this.schema;
+    return this;
   }
 
   isValid(data = []) {
+    console.log(data);
     const keys = Object.keys(data);
 
     const isValid = keys.every((key) => this.schema[key].isValid(data[key]));
