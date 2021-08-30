@@ -79,6 +79,8 @@ describe('Validators:', () => {
     const v = new Validator();
     const schema = v.object();
 
+    expect(schema.isValid()).toBe(true);
+
     schema.shape({
       car: v.string().required(),
       year: v.number().required().range(1900, 2021),
