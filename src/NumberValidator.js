@@ -3,7 +3,7 @@ import BaseValidationSchema from './BaseValidationSchema.js';
 
 export default class NumberValidator extends BaseValidationSchema {
   positive() {
-    this.validators.positive = (data) => data >= 0;
+    this.validators.positive = (data) => data > 0;
     this.checks.push({ validate: this.validators.positive, args: [] });
     return this;
   }

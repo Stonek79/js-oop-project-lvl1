@@ -44,13 +44,11 @@ describe('Validators:', () => {
     expect(schema.isValid(66)).toBe(false);
 
     schema.positive();
-    expect(schema.isValid(0)).toBe(true);
+    expect(schema.isValid(0)).toBe(false);
     expect(schema.isValid(10)).toBe(true);
     expect(schema.isValid(-2)).toBe(false);
     expect(schema.isValid(66)).toBe(false);
 
-    schema.range(-0, 0);
-    expect(schema.isValid(0)).toBe(true);
   });
 
   test('array', () => {
