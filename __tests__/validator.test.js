@@ -60,7 +60,6 @@ describe('Validators:', () => {
     const schema = v.array();
 
     expect(schema.isValid([])).toBe(true);
-    expect(schema.isValid(null)).toBe(false);
 
     schema.required();
     expect(schema.isValid([])).toBe(true);
@@ -80,6 +79,7 @@ describe('Validators:', () => {
     const schema = v.object();
 
     expect(schema.isValid()).toBe(true);
+    expect(schema.isValid(null)).toBe(true);
 
     schema.shape({
       car: v.string().required(),

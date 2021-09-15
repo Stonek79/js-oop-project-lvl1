@@ -5,43 +5,31 @@ import StringValidator from './src/StringValidator.js';
 
 export default class Validator {
   constructor() {
-    this.currentValidator = null;
     this.customValidators = {
-      string: [],
-      number: [],
-      array: [],
+      string: {},
+      number: {},
+      array: {},
+      object: {},
     };
   }
 
   string() {
-    this.currentValidator = new StringValidator();
-    this.addToCustomValidators(this.string.name, this.currentValidator);
-    return this.currentValidator;
+    return new StringValidator(this.customValidators.string);
   }
 
   number() {
-    this.currentValidator = new NumberValidator();
-    this.addToCustomValidators(this.number.name, this.currentValidator);
-    return this.currentValidator;
+    return new NumberValidator(this.customValidators.number);
   }
 
   array() {
-    this.currentValidator = new ArrayValidator();
-    this.addToCustomValidators(this.array.name, this.currentValidator);
-    return this.currentValidator;
+    return new ArrayValidator(this.customValidators.array);
   }
 
   object() {
-    this.currentValidator = new ObjectValidator();
-    return this.currentValidator;
+    return new ObjectValidator(this.customValidators.object);
   }
 
   addValidator(type, name, fn) {
-    return this.customValidators[type].push({ name, fn });
-  }
-
-  addToCustomValidators(currentTypeName, currentType) {
-    this.customValidators[currentTypeName]
-      .forEach(({ name, fn }) => currentType.addCustomValidator(name, fn));
+    this.customValidators[type][name] = fn;
   }
 }
