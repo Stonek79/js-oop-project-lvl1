@@ -6,6 +6,7 @@ export default class ObjectValidator {
   }
 
   isValid(data = []) {
+    if (!data) return true;
     const keys = Object.keys(data);
 
     return keys.every((key) => this.schema[key].isValid(data[key]));
