@@ -19,6 +19,6 @@ and then install the following application to your machine using **make install*
 
 For launch application use **NODEJS** in terminal
 
-See example of usage:
+See tutorial example:
 
 [![asciicast](https://asciinema.org/a/a96Smlw7w7KD3b4OxC1WeeDPT.svg)](https://asciinema.org/a/a96Smlw7w7KD3b4OxC1WeeDPT)
