@@ -1,6 +1,8 @@
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/Stonek79/js-oop-project-lvl1/workflows/hexlet-check/badge.svg)](https://github.com/Stonek79/js-oop-project-lvl1/actions)
 [![WF](https://github.com/Stonek79/js-oop-project-lvl1/workflows/DataValidator/badge.svg)](https://github.com/Stonek79/js-oop-project-lvl1)
+[![Maintainability](https://api.codeclimate.com/v1/badges/0b4e8ed4cb18d1a73e79/maintainability)](https://codeclimate.com/github/Stonek79/js-oop-project-lvl1)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/0b4e8ed4cb18d1a73e79/test_coverage)](https://codeclimate.com/github/Stonek79/js-oop-project-lvl1)
 
 
 ### Installation and launch
