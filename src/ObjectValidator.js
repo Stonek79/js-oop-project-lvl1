@@ -1,6 +1,4 @@
-import _ from 'lodash';
-
-import BaseValidationSchema from "./BaseValidationSchema";
+import BaseValidationSchema from './BaseValidationSchema';
 
 export default class ObjectValidator extends BaseValidationSchema {
   constructor(customValidators) {
@@ -24,4 +22,4 @@ export default class ObjectValidator extends BaseValidationSchema {
 
 ObjectValidator.validators = {
   validate: (arg, fn) => fn(arg),
-}
+};
