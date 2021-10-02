@@ -34,3 +34,14 @@ jobs:
 
       - name: Run tests
         run: make test
+        
+          - name: Test & publish code coverage
+    
+        uses: paambaati/codeclimate-action@v2.6.0
+
+        env:
+            CC_TEST_REPORTER_ID: ${{ secrets.SECRET_KEY_TEST_ID }}
+
+        with:
+            coverageCommand: make test-coverage
+            debug: true
